@@ -63,7 +63,7 @@ function manageEventListener(){
 // Remove Task
     let lll = document.querySelector(".collection");
     lll.addEventListener('click', function(e){
-        console.log(e.target.parentElement.parentElement.textContent);
+        // console.log(e.target.parentElement.parentElement.textContent);
         let val = e.target.parentElement.parentElement.textContent;
         let tasks = JSON.parse(localStorage.getItem('tasks'));
         tasks.splice(val, 1);
@@ -89,6 +89,8 @@ function manageEventListener(){
     let allTask = document.querySelector(".collection");
     clearTask.addEventListener('click', function(){
         allTask.innerHTML = "";
+
+        localStorage.clear();
     });
 
   
