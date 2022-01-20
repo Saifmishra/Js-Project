@@ -21,7 +21,7 @@ function manageEventListener(){
             document.querySelector('.collection').append(li);
         }
         e.preventDefault();
-    })
+    });
 
 // Remove Task
     let lll = document.querySelector(".collection");
@@ -46,6 +46,12 @@ function manageEventListener(){
         })
     })
 
-    //filter tasssssssss
+// Clear Task
+    let allTask = document.querySelector(".collection");
+    clearTask.addEventListener('click', function(){
+        allTask.innerHTML = "";
+    });
 
+
+  
 }
