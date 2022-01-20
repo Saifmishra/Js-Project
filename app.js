@@ -5,23 +5,38 @@ function manageEventListener(){
     let task = document.querySelector('#task');
     let filterTask = document.querySelector('#filter');
     let clearTask = document.querySelector('.clear-tasks');
+
 // Add Task
     frm.addEventListener('submit', function(e){
         if(task.value == ""){
             alert('Add Task First');
-        }else{
+        } else {
             let li = document.createElement('li');
             li.className = 'collection-item';
             li.innerHTML = task.value;
+            savedata(task.value);
             task.value = "";
             let link = document.createElement('a');
             link.className = 'delete-item secondary-content';
             link.innerHTML = '<i class="fa fa-remove">';
             li.appendChild(link);
             document.querySelector('.collection').append(li);
-        }
-        e.preventDefault();
+            e.preventDefault();
+        } 
     });
+
+// Save task to local Storage
+
+    function savedata(task){
+        let tasks;
+        if(localStorage.getItem('tasks') === null){
+            tasks = [];
+        } else{
+            tasks = JSON.parse(localStorage.getItem('tasks'));
+        }
+        tasks.push(task);
+        localStorage.setItem('tasks',JSON.stringify(tasks));
+    }
 
 // Remove Task
     let lll = document.querySelector(".collection");
@@ -33,7 +48,6 @@ function manageEventListener(){
         }
     });
 // Filter Task
-
     filterTask.addEventListener('keyup', function(e){
         let findTask = e.target.value.toLowerCase();
         let allTask = document.querySelectorAll('.collection-item');
@@ -51,6 +65,9 @@ function manageEventListener(){
     clearTask.addEventListener('click', function(){
         allTask.innerHTML = "";
     });
+
+
+// Store task in local storage 
 
 
   
