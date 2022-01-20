@@ -25,7 +25,6 @@ function manageEventListener(){
 
 // Remove Task
     let lll = document.querySelector(".collection");
-
     lll.addEventListener('click', function(e){
         // console.dir(e.target.classList.contains('fa-remove'));
         // e.target.parentElement.classList.contains('delete-item')
@@ -33,13 +32,11 @@ function manageEventListener(){
             e.target.parentElement.parentElement.remove();
         }
     });
-
 // Filter Task
 
     filterTask.addEventListener('keyup', function(e){
         let findTask = e.target.value.toLowerCase();
         let allTask = document.querySelectorAll('.collection-item');
-
         allTask.forEach(function (task) {
             if(task.textContent.toLowerCase().indexOf(findTask) != -1){
                 task.style.display = 'block';
@@ -47,8 +44,8 @@ function manageEventListener(){
                 task.style.display = 'none';
             }
         })
-
-
     })
+
+    //filter tasssssssss
 
 }
