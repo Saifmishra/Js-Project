@@ -25,11 +25,33 @@ function manageEventListener(){
         } 
     });
 
-// Save task to local Storage
-
-    function savedata(task){
+// Show value in front End
+  document.addEventListener('DOMContentLoaded', showVal)
+    function showVal(){
         let tasks;
         if(localStorage.getItem('tasks') === null){
+            tasks = [];
+        } else{
+            tasks = JSON.parse(localStorage.getItem('tasks'));
+        }
+        tasks.forEach(function (task) {
+            let li = document.createElement('li');
+            li.className = 'collection-item';
+            li.innerHTML = task;
+          
+            let link = document.createElement('a');
+            link.className = 'delete-item secondary-content';
+            link.innerHTML = '<i class="fa fa-remove">';
+            li.appendChild(link);
+            document.querySelector('.collection').append(li);  
+        })
+      
+    }
+
+// Save task to local Storage
+    function savedata(task){
+        let tasks;
+        if(null === localStorage.getItem('tasks')){
             tasks = [];
         } else{
             tasks = JSON.parse(localStorage.getItem('tasks'));
@@ -41,8 +63,11 @@ function manageEventListener(){
 // Remove Task
     let lll = document.querySelector(".collection");
     lll.addEventListener('click', function(e){
-        // console.dir(e.target.classList.contains('fa-remove'));
-        // e.target.parentElement.classList.contains('delete-item')
+        console.log(e.target.parentElement.parentElement.textContent);
+        let val = e.target.parentElement.parentElement.textContent;
+        let tasks = JSON.parse(localStorage.getItem('tasks'));
+        tasks.splice(val, 1);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
         if(e.target.classList.contains('fa-remove')){
             e.target.parentElement.parentElement.remove();
         }
@@ -65,10 +90,6 @@ function manageEventListener(){
     clearTask.addEventListener('click', function(){
         allTask.innerHTML = "";
     });
-
-
-// Store task in local storage 
-
 
   
 }
