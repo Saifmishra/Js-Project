@@ -3,13 +3,41 @@ manageEventListener();
 function manageEventListener(){
     let frm = document.querySelector('#task-form');
     let task = document.querySelector('#task');
+    let date = document.querySelector('#date');
     let filterTask = document.querySelector('#filter');
     let clearTask = document.querySelector('.clear-tasks');
 
+
+// Add Future Task
+
+    // futureFrm.addEventListener('submit', function(e){
+
+    //     console.dir(date.value);
+    //     console.dir(futureTask.value);
+    //     let d = date.value;
+    //    if( '' == d || '' == futureTask.value){
+    //        alert('Please Add Future Task add Date First');
+    //    } else{
+    //         alert('Future Task Added Successfully');
+    //         e.preventDefault();
+    //    }
+        
+    // });
+
 // Add Task
+
+if(date === date.value){
+    console.log('You Have a notification');
+};
+ let d = new Date();
+ let v = d.getFullYear() + "-" + d.getMonth()+1 + "-" + d.getDate();;
+console.log(v);
     frm.addEventListener('submit', function(e){
-        if(task.value == ""){
-            alert('Add Task First');
+
+        console.log(date.value);
+        
+        if(task.value == "" || date.value == ''){
+            alert('Add Task and Date Properly');
         } else {
             let li = document.createElement('li');
             li.className = 'collection-item';
@@ -89,7 +117,6 @@ function manageEventListener(){
     let allTask = document.querySelector(".collection");
     clearTask.addEventListener('click', function(){
         allTask.innerHTML = "";
-
         localStorage.clear();
     });
 
