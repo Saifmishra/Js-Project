@@ -1,54 +1,78 @@
 manageEventListener();
-
 function manageEventListener(){
     let frm = document.querySelector('#task-form');
     let task = document.querySelector('#task');
     let date = document.querySelector('#date');
     let filterTask = document.querySelector('#filter');
     let clearTask = document.querySelector('.clear-tasks');
+    let notificationBar = document.querySelector('#notification');
+    // let notificationSection = document.querySelector('.nofication-section');
+    let notificationElement = document.querySelector('.notificationElement');
+    // let closeNitification = document.querySelector('.complete');
 
 
-// Add Future Task
 
-    // futureFrm.addEventListener('submit', function(e){
+// Show and Close Notification 
+    notificationBar.addEventListener('click', function(e){
+        // document.querySelector('.showNotification').style.display = 'block';  
+        notificationElement.removeAttribute('hidden');
+        if(e.target.className == "item"){
+            console.log(e.target);
+            e.target.remove();
+            let yyy = document.getElementById('num').innerHTML;
+            console.log(typeof parseInt(yyy));
+            document.getElementById('num').innerHTML = yyy - 1;
+        }
+    });
+    let d = new Date();
+    let v = d.getFullYear() + "-" + d.getMonth()+1 + "-" + d.getDate();
 
-    //     console.dir(date.value);
-    //     console.dir(futureTask.value);
-    //     let d = date.value;
-    //    if( '' == d || '' == futureTask.value){
-    //        alert('Please Add Future Task add Date First');
-    //    } else{
-    //         alert('Future Task Added Successfully');
-    //         e.preventDefault();
-    //    }
+// Show Notification
+showNotification();
+function showNotification(){
+    let nofy = [];
+    let tasks;
+    if(localStorage.getItem('tasks') === null){
+        tasks = [];
+    } else{
+        tasks = JSON.parse(localStorage.getItem('tasks'));
+    }
+    tasks.forEach(function (task) {
+        if(task.indexOf(v) != -1){
+            nofy.push(task);   
+        }
+    });
+    let res =nofy.length;
+    document.querySelector('#num').innerHTML = res;
+    let li = document.createElement('li');
+    nofy.forEach(function(val){
         
-    // });
+        notificationElement.innerHTML += `<li class = "item"> ${val} <a href="#" class="complete"><i class="fa fa-check-circle" aria-hidden="true"></i></a></li>`;
+        
+    });
+}
+
 
 // Add Task
-
-if(date === date.value){
-    console.log('You Have a notification');
-};
- let d = new Date();
- let v = d.getFullYear() + "-" + d.getMonth()+1 + "-" + d.getDate();;
-console.log(v);
     frm.addEventListener('submit', function(e){
-
+        console.log(task.value);
         console.log(date.value);
-        
         if(task.value == "" || date.value == ''){
             alert('Add Task and Date Properly');
         } else {
             let li = document.createElement('li');
             li.className = 'collection-item';
             li.innerHTML = task.value;
-            savedata(task.value);
+            let finalV = task.value + "(" +date.value + ")";
+            li.innerHTML = finalV;
+            savedata(finalV);
             task.value = "";
             let link = document.createElement('a');
             link.className = 'delete-item secondary-content';
             link.innerHTML = '<i class="fa fa-remove">';
             li.appendChild(link);
             document.querySelector('.collection').append(li);
+            location.reload();
             e.preventDefault();
         } 
     });
@@ -98,6 +122,7 @@ console.log(v);
         localStorage.setItem('tasks', JSON.stringify(tasks));
         if(e.target.classList.contains('fa-remove')){
             e.target.parentElement.parentElement.remove();
+            location.reload();
         }
     });
 // Filter Task
@@ -119,6 +144,5 @@ console.log(v);
         allTask.innerHTML = "";
         localStorage.clear();
     });
-
-  
+//hello bangladesh
 }

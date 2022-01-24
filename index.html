@@ -7,9 +7,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <title>Task List</title>
+  <style>
+
+    /* .showNotification{
+      display: none;
+    } */
+  </style>
 </head>
 <body>
-  
+ 
   <div class="container">
     <div class="row">
       <div class="col s12">
@@ -17,11 +23,23 @@
           <div class="card-content">
             <span class="card-title">Task List</span>
             <div class="row">
+              <div class="nofication-section">
+                <p style="position: absolute; margin: -14px 0 0 38px; padding: -21px 0 0 0;" id="num"></p>
+                <a href="#" id="notification">
+                  <i class="fa fa-bell fa-3x" aria-hidden="true"></i>
+                  <div class="showNotification" >
+                    <ul class="notificationElement" hidden>
+                      
+                    </ul>
+                  </div>
+                </a>
+                
+              </div>
               <form id="task-form">
                 <div class="input-field col s12">
                   <input type="text" name="task" id="task">
                   <label for="task">New Task</label>
-                  <input type="datetime-local" name="date" id="date" placeholder="Date and Time">
+                  <input type="date" name="date" id="date" placeholder="mm-dd-year">
                 </div>
                 <input type="submit" value="Add Task" class="btn">
               </form>
