@@ -6,15 +6,11 @@ function manageEventListener(){
     let filterTask = document.querySelector('#filter');
     let clearTask = document.querySelector('.clear-tasks');
     let notificationBar = document.querySelector('#notification');
-    // let notificationSection = document.querySelector('.nofication-section');
     let notificationElement = document.querySelector('.notificationElement');
-    // let closeNitification = document.querySelector('.complete');
 
 
-
-// Show and Close Notification 
+    // Show and Close Notification 
     notificationBar.addEventListener('click', function(e){
-        // document.querySelector('.showNotification').style.display = 'block';  
         notificationElement.removeAttribute('hidden');
         if(e.target.className == "item"){
             console.log(e.target);
@@ -24,36 +20,41 @@ function manageEventListener(){
             document.getElementById('num').innerHTML = yyy - 1;
         }
     });
+
+    //todays Date (v is todays here)
     let d = new Date();
-    let v = d.getFullYear() + "-" + d.getMonth()+1 + "-" + d.getDate();
+    let justDate =  d.getDate().toString();
+    let justMOnth =  (d.getMonth()+1).toString();
+    justDate = justDate.length != 1 ? justDate : "0" + justDate;
+    justMOnth = justMOnth.length != 1 ? justMOnth : "0" + justMOnth;
+    let v = d.getFullYear() + "-" + justMOnth + "-" + justDate;
+    console.log(v);
 
-// Show Notification
-showNotification();
-function showNotification(){
-    let nofy = [];
-    let tasks;
-    if(localStorage.getItem('tasks') === null){
-        tasks = [];
-    } else{
-        tasks = JSON.parse(localStorage.getItem('tasks'));
-    }
-    tasks.forEach(function (task) {
-        if(task.indexOf(v) != -1){
-            nofy.push(task);   
+    // Show Notification
+    showNotification();
+    function showNotification(){
+        let nofy = [];
+        let tasks;
+        if(localStorage.getItem('tasks') === null){
+            tasks = [];
+        } else{
+            tasks = JSON.parse(localStorage.getItem('tasks'));
         }
-    });
-    let res =nofy.length;
-    document.querySelector('#num').innerHTML = res;
-    let li = document.createElement('li');
-    nofy.forEach(function(val){
-        
-        notificationElement.innerHTML += `<li class = "item"> ${val} <a href="#" class="complete"><i class="fa fa-check-circle" aria-hidden="true"></i></a></li>`;
-        
-    });
-}
+        tasks.forEach(function (task) {
+            if(task.indexOf(v) != -1){
+                nofy.push(task);   
+            }
+        });
+        let res =nofy.length;
+        document.querySelector('#num').innerHTML = res;
+        let li = document.createElement('li');
+        nofy.forEach(function(val){
+            notificationElement.innerHTML += `<li class = "item"> ${val} <a href="#" class="complete"><i class="fa fa-check-circle" aria-hidden="true"></i></a></li>`;
+        });
+    }
 
 
-// Add Task
+    // Add Task
     frm.addEventListener('submit', function(e){
         console.log(task.value);
         console.log(date.value);
@@ -67,6 +68,7 @@ function showNotification(){
             li.innerHTML = finalV;
             savedata(finalV);
             task.value = "";
+            date.value = "";
             let link = document.createElement('a');
             link.className = 'delete-item secondary-content';
             link.innerHTML = '<i class="fa fa-remove">';
@@ -78,7 +80,7 @@ function showNotification(){
     });
 
 // Show value in front End
-  document.addEventListener('DOMContentLoaded', showVal)
+    document.addEventListener('DOMContentLoaded', showVal);
     function showVal(){
         let tasks;
         if(localStorage.getItem('tasks') === null){
@@ -100,7 +102,7 @@ function showNotification(){
       
     }
 
-// Save task to local Storage
+    // Save task to local Storage
     function savedata(task){
         let tasks;
         if(null === localStorage.getItem('tasks')){
@@ -112,7 +114,7 @@ function showNotification(){
         localStorage.setItem('tasks',JSON.stringify(tasks));
     }
 
-// Remove Task
+    // Remove Task
     let lll = document.querySelector(".collection");
     lll.addEventListener('click', function(e){
         // console.log(e.target.parentElement.parentElement.textContent);
@@ -125,7 +127,7 @@ function showNotification(){
             location.reload();
         }
     });
-// Filter Task
+    // Filter Task
     filterTask.addEventListener('keyup', function(e){
         let findTask = e.target.value.toLowerCase();
         let allTask = document.querySelectorAll('.collection-item');
@@ -136,13 +138,12 @@ function showNotification(){
                 task.style.display = 'none';
             }
         })
-    })
+    });
 
-// Clear Task
+    // Clear Task
     let allTask = document.querySelector(".collection");
     clearTask.addEventListener('click', function(){
         allTask.innerHTML = "";
         localStorage.clear();
     });
-//hello bangladesh
 }
